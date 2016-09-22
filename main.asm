@@ -8,13 +8,13 @@ section .data
 section .text
 CMAIN:
     mov rbp, rsp; for correct debugging
-    mov rdi, 100
+    mov rdi, 1000000
 .rep:
     mov rcx, rdi
     push rdi
     call _fibonacci
-    PRINT_UDEC 8, rax
-    NEWLINE
+    ;PRINT_DEC 8, rax
+    ;NEWLINE
     pop rdi
     sub rdi, 1
     jnz .rep
@@ -22,9 +22,9 @@ CMAIN:
     
 _fibonacci:      ; non-recursive so to avoid duplicate calculations
     mov rdi, rcx
-    test rdi, 1
+    test rdi, 1    ;TODO find a way to assemble both those tests
     jnz .rinit
-    test rdi, rdi
+    test rdi, rdi  ; test for 0 case
     jz .end
     xor rax, rax
     mov rcx, 1    ;using ecx because it is considered volitile
@@ -32,7 +32,7 @@ _fibonacci:      ; non-recursive so to avoid duplicate calculations
 .rinit:           ;aligning to parity so to improve performance
     mov rcx, 1
     mov rax, 1
-    sub rdi, 1
+    sub rdi, 1    ; test for 1 case
     jz .end
 .loopFib:
     add rax, rcx
