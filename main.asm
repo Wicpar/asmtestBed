@@ -2,7 +2,7 @@
 
 global CMAIN
 global _isNotPowerOf2
-global _fibbonacci
+global _fibonacci
 section .data
 
 section .text
@@ -12,7 +12,7 @@ CMAIN:
 .rep:
     mov rcx, rdi
     push rdi
-    call _fibbonacci
+    call _fibonacci
     PRINT_UDEC 8, rax
     NEWLINE
     pop rdi
@@ -20,7 +20,7 @@ CMAIN:
     jnz .rep
     ret
     
-_fibbonacci:      ; non-recursive so to avoid duplicate calculations
+_fibonacci:      ; non-recursive so to avoid duplicate calculations
     mov rdi, rcx
     test rdi, 1
     jnz .rinit
