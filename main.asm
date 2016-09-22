@@ -8,8 +8,8 @@ section .data
 section .text
 CMAIN:
     mov rbp, rsp; for correct debugging
-    mov rcx, 100
-    call _fibonacciPrint
+    mov rcx, 100000000000 ;change for 
+    call _fibonacci
     xor rax, rax
     ret
     
@@ -35,7 +35,7 @@ _fibonacci:      ; non-recursive so to avoid duplicate calculations
 .loopFib:
     add rax, rcx
     add rcx, rax
-    sub rdi, 2
+    sub rdi, 2    ; decrement by two to improve performance
     jnz .loopFib
 .end:
     ret
@@ -57,24 +57,14 @@ _fibonacciPrint:      ; non-recursive so to avoid duplicate calculations
 .loopFib:
     add rax, rcx
     
-    push rax
     push rcx
-    push rdi
     mov rcx, rax
     call _putNbr
-    pop rdi
     pop rcx
-    pop rax
     
     add rcx, rax
     
-    push rax
-    push rcx
-    push rdi
     call _putNbr
-    pop rdi
-    pop rcx
-    pop rax
     
     sub rdi, 2
     jnz .loopFib
