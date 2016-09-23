@@ -8,8 +8,8 @@ section .data
 section .text
 CMAIN:
     mov rbp, rsp; for correct debugging
-    mov rcx, 100000000000 ;change for 
-    call _fibonacci
+    mov rcx, 1000000 ;change for 
+    call _fibonacciPrint
     xor rax, rax
     ret
     
@@ -69,6 +69,10 @@ _fibonacciPrint:      ; non-recursive so to avoid duplicate calculations
     sub rdi, 2
     jnz .loopFib
 .end:
+    ret
+    
+_factorial:
+    pinsrq xmm1, qword 2, 0
     ret
     
 _isNotPowerOf2:
