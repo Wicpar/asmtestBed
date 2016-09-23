@@ -8,13 +8,15 @@ section .data
 section .text
 CMAIN:
     mov rbp, rsp; for correct debugging
-    mov rcx, 100000000000 ;change for 
-    call _fibonacci
+    mov rcx, 1111111111 ;change for 
+    call _collatz
+    mov rcx, rax
+    call _putNbr
     xor rax, rax
     ret
     
 _putNbr:
-    PRINT_DEC 8, rcx
+    PRINT_UDEC 8, rcx
     NEWLINE
     ret
     
@@ -69,6 +71,47 @@ _fibonacciPrint:      ; non-recursive so to avoid duplicate calculations
     sub rdi, 2
     jnz .loopFib
 .end:
+    ret
+    
+_factoial:
+    mov rax, rcx
+    test rax, rax
+    jz .end
+    dec rcx
+.loop:
+    mul rcx
+    dec rcx
+    jnz .loop
+.end:
+    ret
+    
+_collatz:
+    xor rdi, rdi
+    test rcx, rcx
+    jz .end
+    mov rax, rcx
+    mov r8, 2
+    mov r9, 3
+    test rax, 1
+    jnz .odd
+.straight:
+    shr rax, 1
+    inc rdi
+    cmp rax, 1
+    jz .end
+    test rax, 1
+    jz .straight
+.odd:
+    mul r9
+    inc rax
+    inc rdi
+    cmp rax, 1
+    jz .end
+    test rax, 1
+    jz .straight
+    jnz .odd
+.end:
+    mov rax, rdi
     ret
     
 _isNotPowerOf2:
